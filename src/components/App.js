@@ -34,8 +34,8 @@ class App extends Component {
       name.length === 0 ||
       email.length === 0 ||
       gender.length === 0 ||
-      password.toString().length === 0 ||
-      gender.length === 0
+      phoneNumber.length === 0 ||
+      password.toString().length === 0
     ) {
       this.setState({ message: "All fields are mandatory" });
       return;
@@ -48,10 +48,6 @@ class App extends Component {
       this.setState({ message: "Email must contain @" });
       return;
     }
-    if (gender !== "male" && gender !== "female" && gender !== "others") {
-      this.setState({ message: "Please identify as male, female or others" });
-      return;
-    }
     if (isNaN(phoneNumber)) {
       this.setState({ message: "Phone Number must contain only numbers" });
       return;
@@ -60,16 +56,17 @@ class App extends Component {
       this.setState({ message: "Password must contain atleast 6 letters" });
       return;
     }
+    if (gender !== "male" && gender !== "female" && gender !== "others") {
+      this.setState({ message: "Please identify as male, female or others" });
+      return;
+    }
     let username = email.substring(0, email.indexOf("@"));
     this.setState({ message: `Hello ${username}` });
   };
   render() {
     return (
       <div id="main">
-        <form
-          style={{ display: "flex", flexDirection: "column" }}
-          onSubmit={this.handleSubmit}
-        >
+        <form style={{ display: "flex", flexDirection: "column" }}>
           <input
             name="name"
             value={this.state.name}
@@ -112,9 +109,11 @@ class App extends Component {
             placeholder="Password"
             data-testid="password"
           />
-          <input type="submit" value="Submit" data-testid="submit" />
+          <button data-testid="submit" onClick={this.handleSubmit}>
+            Submit
+          </button>
         </form>
-        <p>{this.state.message}</p>
+        <h1>{this.state.message}</h1>
       </div>
     );
   }
