@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 
-const genders = ["male", "female", "others"];
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,21 +19,22 @@ class App extends Component {
   };
 
   handleInputChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value.trimStart() });
+    this.setState({ [event.target.name]: event.target.value });
   };
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ message: "" });
-    let name = this.state.name.trim();
-    let email = this.state.email.trim();
+    let name = this.state.name;
+    let email = this.state.email;
     let phoneNumber = this.state.phoneNumber;
-    let gender = this.state.gender.toLowerCase().trim().toLowerCase();
-    let password = this.state.password.trim();
+    let gender = this.state.gender.toLowerCase();
+    let password = this.state.password;
+
     if (
       name.length === 0 ||
       email.length === 0 ||
       gender.length === 0 ||
-      password.length === 0 ||
+      password.toString().length === 0 ||
       gender.length === 0
     ) {
       this.setState({ message: "All fields are mandatory" });
@@ -78,16 +77,14 @@ class App extends Component {
             type="text"
             placeholder="Name"
             data-testid="name"
-            required={true}
           />
           <input
             value={this.state.email}
             onChange={this.handleInputChange}
             name="email"
-            type="email"
+            type="text"
             placeholder="Email"
             data-testid="email"
-            required={true}
           />
           <select
             data-testid="gender"
@@ -103,8 +100,7 @@ class App extends Component {
             value={this.state.phoneNumber}
             onChange={this.handleInputChange}
             name="phoneNumber"
-            required={true}
-            type="number"
+            type="text"
             placeholder="Phone Number"
             data-testid="phoneNumber"
           />
@@ -115,7 +111,6 @@ class App extends Component {
             type="Password"
             placeholder="Password"
             data-testid="password"
-            required={true}
           />
           <input type="submit" value="Submit" data-testid="submit" />
         </form>
